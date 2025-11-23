@@ -85,12 +85,9 @@ const CreatorDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900">
-        <div className="relative">
-          <div className="w-24 h-24 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 w-24 h-24 border-4 border-yellow-500/30 border-t-yellow-500 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '0.8s'}}></div>
-        </div>
-        <p className="text-2xl text-cyan-300 mt-6 animate-pulse">Loading Your Dashboard...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-950">
+        <div className="w-16 h-16 border-4 border-slate-700 border-t-blue-600 rounded-full animate-spin"></div>
+        <p className="text-lg text-slate-400 mt-6">Loading Your Dashboard...</p>
       </div>
     );
   }
@@ -184,15 +181,11 @@ const CreatorDashboard = () => {
             className="mb-8"
           >
             <div className="flex items-center gap-3 mb-6">
-              <h2 className={`text-3xl font-black ${
-                premiumStatus?.is_premium 
-                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400' 
-                  : 'text-white'
-              }`}>
+              <h2 className="text-3xl font-bold text-white">
                 My Applications ({myApplications.length})
               </h2>
               {premiumStatus?.is_premium && (
-                <span className="px-3 py-1 bg-gradient-to-r from-yellow-500/30 to-orange-500/30 border border-yellow-500/50 rounded-full text-yellow-300 text-xs font-bold">VIP ACCESS</span>
+                <span className="px-3 py-1 bg-blue-900/30 border border-blue-500 rounded-full text-blue-400 text-xs font-semibold">Premium</span>
               )}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -203,18 +196,12 @@ const CreatorDashboard = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: idx * 0.1 }}
                   onClick={() => window.location.href = `/profile/${app._id}`}
-                  className={`p-6 backdrop-blur-xl rounded-2xl cursor-pointer transition-all duration-500 relative overflow-hidden ${
+                  className={`p-6 rounded-xl cursor-pointer transition-all relative ${
                     premiumStatus?.is_premium
-                      ? 'bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/50 hover:border-yellow-400 hover:scale-110 hover:rotate-1 shadow-xl shadow-yellow-500/30 hover:shadow-2xl hover:shadow-yellow-500/50'
-                      : 'bg-white/5 border border-cyan-500/30 hover:border-cyan-500/60 hover:scale-105'
+                      ? 'bg-slate-900 border-2 border-blue-500 shadow-lg'
+                      : 'bg-slate-900 border border-slate-800 hover:border-slate-700'
                   }`}
                 >
-                  {premiumStatus?.is_premium && (
-                    <>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_3s_infinite]" style={{backgroundSize: '200% 100%'}}></div>
-
-                    </>
-                  )}
                   <div className="mb-2">
                     <span
                       className={`px-3 py-1 rounded text-sm font-semibold ${
@@ -237,7 +224,7 @@ const CreatorDashboard = () => {
                         {getPlatformLabel(app.profile_data.platform)}{" "}
                         {app.profile_data.channel_name}
                       </p>
-                      <p className="text-xs text-cyan-300">
+                      <p className="text-xs text-slate-400">
                         {app.profile_data.subscribers}
                       </p>
                       <p className="text-xs text-gray-400 mt-1">
@@ -249,7 +236,7 @@ const CreatorDashboard = () => {
                     Applied:{" "}
                     {new Date(app.applied_at).toLocaleDateString()}
                   </p>
-                  <p className="text-xs text-cyan-400 mt-2">
+                  <p className="text-xs text-slate-400 mt-2">
                     Click to view details →
                   </p>
                 </motion.div>
@@ -266,15 +253,11 @@ const CreatorDashboard = () => {
           className="space-y-6"
         >
           <div className="flex items-center gap-3 mb-6">
-            <h2 className={`text-3xl font-black ${
-              premiumStatus?.is_premium 
-                ? 'text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400' 
-                : 'text-white'
-            }`}>
+            <h2 className="text-3xl font-bold text-white">
               Available Requests
             </h2>
             {premiumStatus?.is_premium && (
-              <span className="px-4 py-2 bg-gradient-to-r from-yellow-500/30 to-orange-500/30 border border-yellow-500/50 rounded-full text-yellow-300 font-bold animate-pulse">Premium users get priority!</span>
+              <span className="px-4 py-2 bg-blue-900/30 border border-blue-500 rounded-full text-blue-400 font-semibold">Premium users get priority</span>
             )}
           </div>
 
@@ -282,15 +265,11 @@ const CreatorDashboard = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className={`text-center py-20 backdrop-blur-xl rounded-2xl ${
-                premiumStatus?.is_premium
-                  ? 'bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border-2 border-yellow-500/30'
-                  : 'bg-white/5 border border-gray-500/30'
-              }`}
+              className="text-center py-20 bg-slate-900 rounded-xl border border-slate-800"
             >
-              <div className="w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center text-4xl text-gray-600 mb-6">0</div>
+              <div className="w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center text-4xl text-gray-600 mb-6 mx-auto">0</div>
               <h3 className="text-2xl font-bold text-white mb-3">No Open Requests</h3>
-              <p className={premiumStatus?.is_premium ? 'text-yellow-200' : 'text-gray-400'}>
+              <p className="text-gray-400">
                 {premiumStatus?.is_premium ? 'As a Premium member, you\'ll be notified first when new opportunities arrive!' : 'Check back later for new opportunities!'}
               </p>
             </motion.div>
@@ -316,13 +295,13 @@ const CreatorDashboard = () => {
                     </h3>
                     <p className="text-gray-400 mb-3">{request.description}</p>
                     <div className="flex flex-wrap gap-3 text-sm mb-3">
-                      <span className="text-cyan-300">
+                      <span className="text-slate-300">
                         Budget: {request.budget}
                       </span>
-                      <span className="text-purple-300">
+                      <span className="text-slate-300">
                         Requirements: {request.requirements}
                       </span>
-                      <span className="text-pink-300">
+                      <span className="text-slate-300">
                         Deadline:{" "}
                         {new Date(request.deadline).toLocaleDateString()}
                       </span>
@@ -351,7 +330,7 @@ const CreatorDashboard = () => {
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
-                    className="mt-4 pt-4 border-t border-cyan-500/30"
+                    className="mt-4 pt-4 border-t border-slate-700"
                   >
                     <h4 className="text-lg font-semibold text-white mb-3">
                       Submit Your Profile
@@ -366,31 +345,23 @@ const CreatorDashboard = () => {
                           value={profileUrl}
                           onChange={(e) => setProfileUrl(e.target.value)}
                           placeholder="e.g. https://www.youtube.com/@yourchannel"
-                          className="w-full px-4 py-2 bg-white/10 border border-cyan-500/30 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                          className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                         />
                       </div>
                       <div className="flex gap-3">
                         <button
                           onClick={() => handleApply(request._id)}
                           disabled={applying}
-                          className={`px-8 py-3 rounded-xl transition-all font-bold transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
-                            premiumStatus?.is_premium
-                              ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white shadow-xl shadow-yellow-500/50'
-                              : 'bg-purple-500 hover:bg-purple-600 text-white'
-                          }`}
+                          className="px-8 py-3 rounded-lg transition-colors font-semibold bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          {applying ? "Submitting..." : (premiumStatus?.is_premium ? "Submit Premium Application" : "Submit Application")}
+                          {applying ? "Submitting..." : "Submit Application"}
                         </button>
                         <button
                           onClick={() => {
                             setSelectedRequest(null);
                             setProfileUrl("");
                           }}
-                          className={`px-6 py-3 rounded-xl transition-all font-semibold ${
-                            premiumStatus?.is_premium
-                              ? 'bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/50 text-yellow-300'
-                              : 'bg-gray-600 hover:bg-gray-700 text-white'
-                          }`}
+                          className="px-6 py-3 rounded-lg transition-colors font-semibold bg-slate-700 hover:bg-slate-600 text-white"
                         >
                           Cancel
                         </button>

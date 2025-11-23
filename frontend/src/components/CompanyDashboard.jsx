@@ -160,24 +160,15 @@ const CompanyDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900">
-        <div className="relative">
-          <div className="w-20 h-20 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 w-20 h-20 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1s'}}></div>
-        </div>
-        <p className="text-2xl text-cyan-300 mt-6 animate-pulse">Loading Dashboard...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-950">
+        <div className="w-16 h-16 border-4 border-slate-700 border-t-blue-600 rounded-full animate-spin"></div>
+        <p className="text-lg text-slate-400 mt-6">Loading Dashboard...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 py-8 px-4 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-      </div>
+    <div className="min-h-screen bg-slate-950 py-8 px-4">
       
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Back to Home Navigation */}
@@ -188,7 +179,7 @@ const CompanyDashboard = () => {
         >
           <button
             onClick={() => window.location.href = '/'}
-            className="group flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 backdrop-blur-lg border border-cyan-500/30 hover:border-cyan-500/60 rounded-lg transition-all text-cyan-400 hover:text-cyan-300"
+            className="group flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-colors text-slate-300 hover:text-white"
           >
             <span className="group-hover:-translate-x-1 transition-transform">←</span>
             Back to Profile Analyzer
@@ -245,7 +236,7 @@ const CompanyDashboard = () => {
               className="p-5 bg-slate-800 rounded-lg border border-slate-700 hover:border-slate-600 transition-all"
             >
               <div className="flex items-center justify-between mb-2">
-                <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 font-bold">A</div>
+                <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-400 font-bold">A</div>
                 <span className="text-2xl font-bold text-white">{stats.totalApplications}</span>
               </div>
               <p className="text-gray-400 font-semibold">Total Applications</p>
@@ -258,7 +249,7 @@ const CompanyDashboard = () => {
               className="p-5 bg-slate-800 rounded-lg border border-slate-700 hover:border-slate-600 transition-all"
             >
               <div className="flex items-center justify-between mb-2">
-                <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center text-yellow-400 font-bold">P</div>
+                <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-400 font-bold">P</div>
                 <span className="text-2xl font-bold text-white">{stats.premiumApplicants}</span>
               </div>
               <p className="text-gray-400 font-semibold">Premium Creators</p>
@@ -319,7 +310,7 @@ const CompanyDashboard = () => {
                     setFormData({ ...formData, description: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-4 py-3 bg-white/10 border border-cyan-500/30 rounded-xl text-white focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/50 transition-all group-hover:border-cyan-500/50 resize-none"
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all resize-none"
                   placeholder="Describe what you need..."
                 />
               </div>
@@ -334,7 +325,7 @@ const CompanyDashboard = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, budget: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-white/10 border border-cyan-500/30 rounded-xl text-white focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/50 transition-all group-hover:border-cyan-500/50"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
                     placeholder="E.g. $500-1000"
                   />
                 </div>
@@ -348,7 +339,7 @@ const CompanyDashboard = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, requirements: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-white/10 border border-cyan-500/30 rounded-xl text-white focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/50 transition-all group-hover:border-cyan-500/50"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
                     placeholder="E.g. 10K+ subscribers"
                   />
                 </div>
@@ -362,14 +353,14 @@ const CompanyDashboard = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, deadline: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-white/10 border border-cyan-500/30 rounded-xl text-white focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/50 transition-all group-hover:border-cyan-500/50"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-8 py-4 rounded-xl transition-all transform hover:scale-[1.02] shadow-lg shadow-purple-500/50 text-lg"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors text-lg"
               >
                 Create Request
               </button>
@@ -396,8 +387,8 @@ const CompanyDashboard = () => {
               <h3 className="text-2xl font-bold text-white mb-3">No Requests Yet</h3>
               <p className="text-gray-400 mb-6">Create your first request above to get started!</p>
               <button
-                onClick={() => setShowCreateForm(true)}
-                className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-bold rounded-lg transition-all"
+                onClick={() => setShowRequestForm(true)}
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
               >
                 + Create First Request
               </button>
@@ -409,7 +400,7 @@ const CompanyDashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-6 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 transition-all hover:shadow-xl hover:shadow-cyan-500/20"
+                className="p-6 bg-slate-900 rounded-xl border border-slate-800 hover:border-slate-700 transition-colors"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
@@ -420,7 +411,7 @@ const CompanyDashboard = () => {
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
                           request.status === "open"
-                            ? "bg-gradient-to-r from-green-500/30 to-emerald-500/30 text-green-300 border border-green-500/50"
+                            ? "bg-green-900/30 text-green-400 border border-green-700"
                             : "bg-gray-500/20 text-gray-300"
                         }`}
                       >
@@ -429,13 +420,13 @@ const CompanyDashboard = () => {
                     </div>
                     <p className="text-gray-300 mb-4 text-lg">{request.description}</p>
                     <div className="flex flex-wrap gap-4 text-sm">
-                      <span className="px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 rounded-lg font-semibold border border-cyan-500/30">
+                      <span className="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg font-medium border border-slate-700">
                         Budget: {request.budget}
                       </span>
-                      <span className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 rounded-lg font-semibold border border-purple-500/30">
+                      <span className="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg font-medium border border-slate-700">
                         Requirements: {request.requirements}
                       </span>
-                      <span className="px-4 py-2 bg-gradient-to-r from-pink-500/20 to-red-500/20 text-pink-300 rounded-lg font-semibold border border-pink-500/30">
+                      <span className="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg font-medium border border-slate-700">
                         Deadline: {new Date(request.deadline).toLocaleDateString()}
                       </span>
                     </div>
@@ -452,8 +443,8 @@ const CompanyDashboard = () => {
 
                 <div className="flex gap-4 mt-6">
                   <button
-                    onClick={() => fetchApplications(request._id)}
-                    className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-purple-500/30 flex items-center gap-2"
+                    onClick={() => handleViewApplications(request._id)}
+                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
                   >
                     
                     View Applications
@@ -466,7 +457,7 @@ const CompanyDashboard = () => {
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
-                      className="mt-8 pt-8 border-t border-cyan-500/30"
+                      className="mt-8 pt-8 border-t border-slate-700"
                     >
                       <div className="flex items-center justify-between mb-6">
                         <h4 className="text-2xl font-bold text-white">
@@ -478,7 +469,7 @@ const CompanyDashboard = () => {
                           <select
                             value={filterPremium}
                             onChange={(e) => setFilterPremium(e.target.value)}
-                            className="px-4 py-2 bg-white/10 border border-cyan-500/30 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                            className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                           >
                             <option value="all">All Types</option>
                             <option value="premium">Premium Only</option>
@@ -488,7 +479,7 @@ const CompanyDashboard = () => {
                           <select
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}
-                            className="px-4 py-2 bg-white/10 border border-cyan-500/30 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                            className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                           >
                             <option value="all">All Status</option>
                             <option value="pending">Pending</option>
@@ -501,12 +492,12 @@ const CompanyDashboard = () => {
                             placeholder="Search creators..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="px-4 py-2 bg-white/10 border border-cyan-500/30 rounded-lg text-white focus:outline-none focus:border-cyan-500 placeholder-gray-400"
+                            className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500 placeholder-gray-400"
                           />
                           
                           <button
                             onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-                            className="px-4 py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-purple-300 hover:bg-purple-500/30 transition-all"
+                            className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors"
                             title={`Switch to ${viewMode === "grid" ? "list" : "grid"} view`}
                           >
                             {viewMode === "grid" ? "List" : "Grid"}
@@ -518,20 +509,20 @@ const CompanyDashboard = () => {
                       {applications[request._id].top_5.length > 0 && (
                         <div className="mb-8">
                           <div className="flex items-center gap-3 mb-4">
-                            <h5 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+                            <h5 className="text-xl font-bold text-blue-400">
                               Top 5 Creators
                             </h5>
-                            <div className="h-px flex-1 bg-gradient-to-r from-yellow-500/50 to-transparent"></div>
+                            <div className="h-px flex-1 bg-slate-700"></div>
                           </div>
                           <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}>
                             {applications[request._id].top_5.map((app, index) => (
                               <div
                                 key={app._id}
                                 onClick={() => window.location.href = `/profile/${app._id}`}
-                                className={`p-5 rounded-xl border cursor-pointer transition-all duration-500 ${
+                                className={`p-5 rounded-xl border cursor-pointer transition-all ${
                                   app.is_premium
-                                    ? "bg-gradient-to-br from-yellow-500/30 via-orange-500/25 to-pink-500/30 border-2 border-yellow-400 shadow-2xl shadow-yellow-500/40 hover:shadow-yellow-500/60 hover:scale-110 hover:-rotate-1 relative overflow-hidden animate-pulse"
-                                    : "bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/40 hover:border-cyan-500/70 hover:scale-105"
+                                    ? "bg-slate-900 border-2 border-blue-500 shadow-lg"
+                                    : "bg-slate-900 border border-slate-800 hover:border-slate-700"
                                 }`}
                               >
                                 
@@ -588,7 +579,7 @@ const CompanyDashboard = () => {
                           <h5 className="text-xl font-bold text-gray-200">
                             All Applications
                           </h5>
-                          <div className="h-px flex-1 bg-gradient-to-r from-gray-500/50 to-transparent"></div>
+                          <div className="h-px flex-1 bg-slate-700"></div>
                           <span className="text-sm text-gray-400">
                             {getFilteredApplications(applications[request._id]).length} results
                           </span>
