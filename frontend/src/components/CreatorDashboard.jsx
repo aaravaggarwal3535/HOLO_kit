@@ -11,9 +11,11 @@ const CreatorDashboard = () => {
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [profileUrl, setProfileUrl] = useState("");
   const [applying, setApplying] = useState(false);
+  const [premiumStatus, setPremiumStatus] = useState(null);
 
   useEffect(() => {
     fetchData();
+    fetchPremiumStatus();
   }, []);
 
   const fetchData = async () => {
@@ -28,6 +30,15 @@ const CreatorDashboard = () => {
     } catch (error) {
       console.error("Failed to fetch data:", error);
       setLoading(false);
+    }
+  };
+
+  const fetchPremiumStatus = async () => {
+    try {
+      const response = await analyzeAPI.get("/premium/status");
+      setPremiumStatus(response.data);
+    } catch (error) {
+      console.error("Failed to fetch premium status:", error);
     }
   };
 
@@ -59,62 +70,151 @@ const CreatorDashboard = () => {
     return myApplications.some((app) => app.request_id === requestId);
   };
 
-  const getPlatformEmoji = (platform) => {
+  const getPlatformLabel = (platform) => {
     switch (platform?.toLowerCase()) {
       case "youtube":
-        return "🎥";
+        return "YT";
       case "github":
-        return "💻";
+        return "GH";
       case "instagram":
-        return "📸";
+        return "IG";
       default:
-        return "🌐";
+        return "WEB";
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-2xl text-cyan-300">Loading...</div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900">
+        <div className="relative">
+          <div className="w-24 h-24 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
+          <div className="absolute inset-0 w-24 h-24 border-4 border-yellow-500/30 border-t-yellow-500 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '0.8s'}}></div>
+        </div>
+        <p className="text-2xl text-cyan-300 mt-6 animate-pulse">Loading Your Dashboard...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen py-8 px-4 relative overflow-hidden bg-slate-950">
+
+      
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Back to Home Navigation */}
-        <div className="mb-6">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="mb-6"
+        >
           <button
             onClick={() => window.location.href = '/'}
-            className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-2"
+            className="group flex items-center gap-2 px-5 py-2 rounded-lg transition-all bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white"
           >
-            ← Back to Profile Analyzer
+            <span className="group-hover:-translate-x-1 transition-transform">←</span>
+            Back to Profile Analyzer
           </button>
-        </div>
+        </motion.div>
         
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
-            Creator Dashboard
-          </h1>
-          <p className="text-gray-400">Welcome back, {user.username}</p>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              {premiumStatus?.is_premium ? (
+                <div>
+                  <h1 className="text-4xl font-bold text-white mb-2">
+                    Creator Dashboard <span className="text-2xl">⭐</span>
+                  </h1>
+                  <p className="text-gray-400 text-lg">Welcome back, <span className="text-white font-semibold">{user.username}</span></p>
+                </div>
+              ) : (
+                <div>
+                  <h1 className="text-4xl font-bold text-white mb-2">
+                    Creator Dashboard
+                  </h1>
+                  <p className="text-gray-400 text-lg">Welcome back, <span className="text-white font-semibold">{user.username}</span></p>
+                </div>
+              )}
+            </div>
+            
+            {/* Premium Status / Upgrade Button */}
+            <div>
+              {premiumStatus?.is_premium ? (
+                <div className="flex items-center gap-4">
+                  <div className="px-6 py-3 bg-slate-800 rounded-lg border border-slate-700">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">⭐</span>
+                      <div>
+                        <p className="text-white font-bold text-base">Premium Member</p>
+                        {premiumStatus.premium_expires && (
+                          <p className="text-sm text-gray-400">
+                            Active until {new Date(premiumStatus.premium_expires).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => window.location.href = '/premium-upgrade'}
+                    className="px-4 py-2 bg-slate-700 hover:bg-slate-600 border border-slate-600 rounded-lg text-white font-semibold transition-all"
+                  >
+                    Manage
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => window.location.href = '/premium-upgrade'}
+                  className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-all flex items-center gap-2"
+                >
+                  Upgrade to Premium
+                </button>
+              )}
+            </div>
+          </div>
+        </motion.div>
 
         {/* My Applications Section */}
         {myApplications.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-4">
-              My Applications ({myApplications.length})
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {myApplications.map((app) => (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className={`text-3xl font-black ${
+                premiumStatus?.is_premium 
+                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400' 
+                  : 'text-white'
+              }`}>
+                My Applications ({myApplications.length})
+              </h2>
+              {premiumStatus?.is_premium && (
+                <span className="px-3 py-1 bg-gradient-to-r from-yellow-500/30 to-orange-500/30 border border-yellow-500/50 rounded-full text-yellow-300 text-xs font-bold">VIP ACCESS</span>
+              )}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {myApplications.map((app, idx) => (
                 <motion.div
                   key={app._id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.1 }}
                   onClick={() => window.location.href = `/profile/${app._id}`}
-                  className="p-4 bg-white/5 backdrop-blur-lg rounded-xl border border-cyan-500/30 cursor-pointer hover:border-cyan-500/60 hover:scale-105 transition-all"
+                  className={`p-6 backdrop-blur-xl rounded-2xl cursor-pointer transition-all duration-500 relative overflow-hidden ${
+                    premiumStatus?.is_premium
+                      ? 'bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/50 hover:border-yellow-400 hover:scale-110 hover:rotate-1 shadow-xl shadow-yellow-500/30 hover:shadow-2xl hover:shadow-yellow-500/50'
+                      : 'bg-white/5 border border-cyan-500/30 hover:border-cyan-500/60 hover:scale-105'
+                  }`}
                 >
+                  {premiumStatus?.is_premium && (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_3s_infinite]" style={{backgroundSize: '200% 100%'}}></div>
+
+                    </>
+                  )}
                   <div className="mb-2">
                     <span
                       className={`px-3 py-1 rounded text-sm font-semibold ${
@@ -134,7 +234,7 @@ const CreatorDashboard = () => {
                   {app.profile_data && (
                     <div className="mt-3 pt-3 border-t border-gray-600">
                       <p className="text-sm text-gray-300 mb-1">
-                        {getPlatformEmoji(app.profile_data.platform)}{" "}
+                        {getPlatformLabel(app.profile_data.platform)}{" "}
                         {app.profile_data.channel_name}
                       </p>
                       <p className="text-xs text-cyan-300">
@@ -155,25 +255,60 @@ const CreatorDashboard = () => {
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Available Requests */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-white">Available Requests</h2>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="space-y-6"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <h2 className={`text-3xl font-black ${
+              premiumStatus?.is_premium 
+                ? 'text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400' 
+                : 'text-white'
+            }`}>
+              Available Requests
+            </h2>
+            {premiumStatus?.is_premium && (
+              <span className="px-4 py-2 bg-gradient-to-r from-yellow-500/30 to-orange-500/30 border border-yellow-500/50 rounded-full text-yellow-300 font-bold animate-pulse">Premium users get priority!</span>
+            )}
+          </div>
 
           {requests.length === 0 ? (
-            <div className="text-center py-12 text-gray-400">
-              No open requests available at the moment. Check back later!
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className={`text-center py-20 backdrop-blur-xl rounded-2xl ${
+                premiumStatus?.is_premium
+                  ? 'bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border-2 border-yellow-500/30'
+                  : 'bg-white/5 border border-gray-500/30'
+              }`}
+            >
+              <div className="w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center text-4xl text-gray-600 mb-6">0</div>
+              <h3 className="text-2xl font-bold text-white mb-3">No Open Requests</h3>
+              <p className={premiumStatus?.is_premium ? 'text-yellow-200' : 'text-gray-400'}>
+                {premiumStatus?.is_premium ? 'As a Premium member, you\'ll be notified first when new opportunities arrive!' : 'Check back later for new opportunities!'}
+              </p>
+            </motion.div>
           ) : (
-            requests.map((request) => (
+            requests.map((request, idx) => (
               <motion.div
                 key={request._id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-6 bg-white/5 backdrop-blur-lg rounded-xl border border-cyan-500/30"
+                transition={{ delay: idx * 0.1 }}
+                className="p-6 bg-slate-800 rounded-lg border border-slate-700 hover:border-slate-600 transition-all"
               >
+                {premiumStatus?.is_premium && (
+                  <div className="absolute top-3 right-3 px-3 py-1 bg-slate-700 rounded-full text-white text-xs font-bold flex items-center gap-1">
+                    <span>⭐</span>
+                    Premium
+                  </div>
+                )}
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-white mb-2">
@@ -182,13 +317,13 @@ const CreatorDashboard = () => {
                     <p className="text-gray-400 mb-3">{request.description}</p>
                     <div className="flex flex-wrap gap-3 text-sm mb-3">
                       <span className="text-cyan-300">
-                        💰 {request.budget}
+                        Budget: {request.budget}
                       </span>
                       <span className="text-purple-300">
-                        📋 {request.requirements}
+                        Requirements: {request.requirements}
                       </span>
                       <span className="text-pink-300">
-                        📅 Deadline:{" "}
+                        Deadline:{" "}
                         {new Date(request.deadline).toLocaleDateString()}
                       </span>
                     </div>
@@ -198,13 +333,13 @@ const CreatorDashboard = () => {
                   </div>
 
                   {hasApplied(request._id) ? (
-                    <span className="px-4 py-2 bg-green-500/20 text-green-300 rounded-lg font-semibold">
-                      ✓ Applied
+                    <span className="px-4 py-2 rounded-lg font-semibold bg-green-500/20 text-green-400 border border-green-500/40">
+                      Applied
                     </span>
                   ) : (
                     <button
                       onClick={() => setSelectedRequest(request._id)}
-                      className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg transition-all font-semibold"
+                      className="px-5 py-2 rounded-lg transition-all font-semibold bg-slate-700 hover:bg-slate-600 text-white border border-slate-600"
                     >
                       Apply Now
                     </button>
@@ -238,22 +373,30 @@ const CreatorDashboard = () => {
                         <button
                           onClick={() => handleApply(request._id)}
                           disabled={applying}
-                          className="bg-purple-500 hover:bg-purple-600 disabled:bg-gray-500 text-white px-6 py-2 rounded-lg transition-all font-semibold"
+                          className={`px-8 py-3 rounded-xl transition-all font-bold transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
+                            premiumStatus?.is_premium
+                              ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white shadow-xl shadow-yellow-500/50'
+                              : 'bg-purple-500 hover:bg-purple-600 text-white'
+                          }`}
                         >
-                          {applying ? "Analyzing..." : "Submit Application"}
+                          {applying ? "Submitting..." : (premiumStatus?.is_premium ? "Submit Premium Application" : "Submit Application")}
                         </button>
                         <button
                           onClick={() => {
                             setSelectedRequest(null);
                             setProfileUrl("");
                           }}
-                          className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg transition-all"
+                          className={`px-6 py-3 rounded-xl transition-all font-semibold ${
+                            premiumStatus?.is_premium
+                              ? 'bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/50 text-yellow-300'
+                              : 'bg-gray-600 hover:bg-gray-700 text-white'
+                          }`}
                         >
                           Cancel
                         </button>
                       </div>
                       <p className="text-xs text-gray-400">
-                        💡 Your profile will be automatically analyzed using AI to
+                        Note: Your profile will be automatically analyzed using AI to
                         verify your reach and content quality.
                       </p>
                     </div>
@@ -262,12 +405,12 @@ const CreatorDashboard = () => {
               </motion.div>
             ))
           )}
-        </div>
+        </motion.div>
 
         {/* Empty State */}
         {requests.length === 0 && myApplications.length === 0 && (
           <div className="text-center py-20">
-            <div className="text-6xl mb-4">🚀</div>
+
             <h3 className="text-2xl font-bold text-white mb-2">
               No Requests Yet
             </h3>

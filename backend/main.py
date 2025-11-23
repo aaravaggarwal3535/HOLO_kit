@@ -11,7 +11,7 @@ from contextlib import asynccontextmanager
 
 from agents.creator_analyzer import CreatorAnalyzerAgent
 from database.mongodb import connect_to_mongo, close_mongo_connection
-from routes import auth, requests, image_gen
+from routes import auth, requests, image_gen, premium
 
 # Load environment variables
 load_dotenv()
@@ -55,6 +55,9 @@ app.include_router(requests.router)
 
 # Include image generation routes
 app.include_router(image_gen.router)
+
+# Include premium subscription routes
+app.include_router(premium.router)
 
 
 # Request/Response models

@@ -53,6 +53,9 @@ class UserInDB(UserBase):
     hashed_password: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
     is_active: bool = True
+    is_premium: bool = False  # Premium subscription status
+    premium_since: Optional[datetime] = None  # When premium was activated
+    premium_expires: Optional[datetime] = None  # Premium expiration date
     profile_data: Optional[dict] = None  # Store creator/company specific data
     
     class Config:

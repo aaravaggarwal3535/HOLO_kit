@@ -44,8 +44,8 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-block">
-            <div className="w-16 h-16 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mb-4 mx-auto">
-              <span className="text-3xl">🔮</span>
+            <div className="w-16 h-16 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mb-4 mx-auto text-3xl font-bold text-white">
+              HK
             </div>
             <h1 className="text-3xl font-bold gradient-text">Holo-Kit</h1>
             <p className="text-gray-400 text-sm mt-2">Sign in to your account</p>

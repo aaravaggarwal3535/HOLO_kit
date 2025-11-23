@@ -158,6 +158,7 @@ async def apply_to_request(
         "request_id": application_data.request_id,
         "creator_id": str(current_user["_id"]),
         "creator_username": current_user["username"],
+        "is_premium": current_user.get("is_premium", False),  # Include premium status
         "profile_url": application_data.profile_url,
         "profile_data": profile_data,
         "status": "pending",

@@ -70,8 +70,8 @@ export default function Signup() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-block">
-            <div className="w-16 h-16 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mb-4 mx-auto">
-              <span className="text-3xl">🔮</span>
+            <div className="w-16 h-16 bg-gradient-to-br from-neon-blue to-neon-purple rounded-2xl flex items-center justify-center mb-4 mx-auto text-3xl font-bold text-white">
+              HK
             </div>
             <h1 className="text-3xl font-bold gradient-text">Join Holo-Kit</h1>
             <p className="text-gray-400 text-sm mt-2">Create your account</p>
@@ -106,7 +106,6 @@ export default function Signup() {
                       : 'border-white/10 glass text-gray-400 hover:border-white/30'
                   }`}
                 >
-                  <div className="text-2xl mb-1">🎨</div>
                   <div className="font-semibold">Creator</div>
                 </button>
                 <button
@@ -118,7 +117,6 @@ export default function Signup() {
                       : 'border-white/10 glass text-gray-400 hover:border-white/30'
                   }`}
                 >
-                  <div className="text-2xl mb-1">🏢</div>
                   <div className="font-semibold">Company</div>
                 </button>
               </div>
