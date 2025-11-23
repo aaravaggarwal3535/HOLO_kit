@@ -65,6 +65,15 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link
+                  to="/profile"
+                  className="flex items-center gap-3 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
+                >
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    {user.username?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                  <span className="text-sm font-medium text-white">{user.username}</span>
+                </Link>
+                <Link
                   to="/dashboard"
                   className="px-4 py-2 text-sm font-semibold text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
                 >

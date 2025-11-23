@@ -6,6 +6,7 @@ import Features from './components/Features';
 import Contact from './components/Contact';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Profile from './components/Profile';
 import CompanyDashboard from './components/CompanyDashboard';
 import CreatorDashboard from './components/CreatorDashboard';
 import ProfileDetail from './components/ProfileDetail';
@@ -43,6 +44,14 @@ function App() {
       <Route path="/contact" element={<PublicRoute><Contact /></PublicRoute>} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/dashboard"
         element={
